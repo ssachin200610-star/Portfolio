@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sachin S | The Code Mechanic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Sachin S - BCA Student & Aspiring Developer">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Animated Gear Background -->
+<div class="gear-bg">
+    <div class="gear"></div>
+    <div class="gear"></div>
+    <div class="gear"></div>
+    <div class="gear"></div>
+</div>
+
+<header>
+    <div class="profile-container">
+        <img src="images/profile.jpg" alt="Sachin S" class="profile-img" onerror="handleProfileImageError(this)">
+    </div>
+    <h1>SACHIN S</h1>
+    <p class="tagline">
+        <span class="wrench">🔧</span>
+        BCA Student | Aspiring Developer | Code Mechanic
+        <span class="wrench">🔧</span>
+    </p>
+    <div class="visitor-counter">
+        🛠️ Workshop Visitors: <span id="visitorCount">Loading...</span>
+    </div>
+</header>
+
+<nav>
+    <a href="#about">ABOUT</a>
+    <a href="#skills">SKILLS</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#contact">CONTACT</a>
+</nav>
+
+<section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="card">
+        <h2>🔩 The Code Mechanic</h2>
+        <p>Hello! I'm <strong style="color: #ff6b35;">Sachin S</strong>, a passionate BCA student with a knack for taking code apart and putting it back together - just like a mechanic with an engine! I'm fascinated by web development and programming, always tinkering with new technologies and building creative projects.</p>
+        <br>
+        <p>Just like a mechanic who understands every part of an engine, I strive to understand the inner workings of every piece of code I write. From debugging tricky problems to optimizing performance, I approach every challenge with the precision and patience of a skilled craftsman.</p>
+    </div>
+</section>
+
+<section id="skills">
+    <h2 class="section-title">My Toolkit</h2>
+    <div class="card">
+        <h2>⚙️ Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="icon">🌐</div>
+                <h3>HTML</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%;"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="icon">🎨</div>
+                <h3>CSS</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 80%;"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="icon">☕</div>
+                <h3>Java</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%;"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="icon">🐍</div>
+                <h3>Python</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 70%;"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="icon">💻</div>
+                <h3>C Programming</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2 class="section-title">Garage Projects</h2>
+    <div class="card">
+        <h2>🛠️ Projects Under Construction</h2>
+        <p>Currently working on exciting projects! Check back soon for updates on my latest builds and experiments. Every great mechanic started with small projects - stay tuned for what's coming off the assembly line!</p>
+    </div>
+</section>
+
+<section id="contact">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="card">
+        <h2>📬 Contact Workshop</h2>
+        <p>Have a project in mind? Want to collaborate? Drop me a message and let's build something amazing together!</p>
+        
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" placeholder="Your Message..." required></textarea>
+            </div>
+            <button type="submit" class="btn">
+                🔧 Send Message
+            </button>
+        </form>
+        
+        <div class="form-message" id="formMessage"></div>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="icon">📧</span>
+                <div>
+                    <strong>Email</strong><br>
+                    <a href="mailto:ssachin200610@gmail.com">ssachin200610@gmail.com</a>
+                </div>
+            </div>
+            <div class="contact-item">
+                <span class="icon">📱</span>
+                <div>
+                    <strong>Phone</strong><br>
+                    <a href="tel:6360939619">6360939619</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="social-links">
+        <a href="mailto:ssachin200610@gmail.com" title="Email">📧</a>
+    </div>
+    <p>© 2026 Sachin S | The Code Mechanic | All Rights Reserved</p>
+    <p style="margin-top: 10px; font-size: 12px; color: #666;">⚙️ Built with passion and precision ⚙️</p>
+</footer>
+
+<!-- Custom JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Sachin S</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS - CONNECTED FILE -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+
+        .admin-header h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .admin-header p {
+            color: var(--text-secondary);
+            margin: 10px 0 0 0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--card-bg);
+            color: var(--text);
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-refresh {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-refresh:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background-color: var(--success);
+            color: white;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .alert-error {
+            background-color: var(--danger);
+            color: white;
+            border-left: 4px solid #e74c3c;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .table-wrapper {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .message-cell {
+            max-width: 300px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .date-cell {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .btn-delete {
+            background-color: var(--danger);
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Roboto Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--secondary);
+            transform: translateX(-5px);
+        }
+
+        .id-cell {
+            background-color: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
+            padding: 4px 8px;
+            display: inline-block;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: auto;
+            }
+
+            .btn-group {
+                width: 100%;
+            }
+
+            .btn-refresh {
+                flex: 1;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .message-cell {
+                max-width: 150px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Gear Background -->
+    <div class="gear-bg">
+        <div class="gear"></div>
+        <div class="gear"></div>
+        <div class="gear"></div>
+        <div class="gear"></div>
+    </div>
+
+    <div class="admin-container">
+        <a href="/" class="nav-back">← Back to Portfolio</a>
+
+        <div class="admin-header">
+            <h1>⚙️ ADMIN PANEL</h1>
+            <p>Manage all incoming contact messages</p>
+        </div>
+
+        <!-- Alert Messages -->
+        <div id="alertBox" class="alert"></div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="🔍 Search by name, email, or message..."
+                >
+            </div>
+            <div class="btn-group">
+                <button class="btn-refresh" onclick="refreshContacts()">🔄 REFRESH</button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <div id="loadingDiv" class="loading" style="display: none;">
+                <div class="loader"></div>
+                <p>Loading messages...</p>
+            </div>
+
+            <table id="contactsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="contactsBody">
+                </tbody>
+            </table>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p>📭 No messages yet. Check back later!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "";
+
+        // ==================== LOAD CONTACTS ====================
+        async function loadContacts() {
+            const loadingDiv = document.getElementById("loadingDiv");
+            const emptyState = document.getElementById("emptyState");
+            const table = document.getElementById("contactsTable");
+            const tbody = document.getElementById("contactsBody");
+
+            loadingDiv.style.display = "block";
+            emptyState.style.display = "none";
+            table.style.display = "none";
+
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/contacts`);
+                if (!response.ok) throw new Error("Failed to fetch contacts");
+
+                const contacts = await response.json();
+                loadingDiv.style.display = "none";
+
+                if (contacts.length === 0) {
+                    emptyState.style.display = "block";
+                    return;
+                }
+
+                tbody.innerHTML = contacts.map(contact => `
+                    <tr data-id="${contact.id}">
+                        <td><span class="id-cell">#${contact.id}</span></td>
+                        <td>${escapeHtml(contact.name)}</td>
+                        <td>${escapeHtml(contact.email)}</td>
+                        <td class="message-cell">${escapeHtml(contact.message)}</td>
+                        <td class="date-cell">${formatDate(contact.created_at)}</td>
+                        <td>
+                            <button 
+                                class="btn-delete" 
+                                onclick="deleteContact(${contact.id})"
+                            >
+                                🗑️ Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join("");
+
+                table.style.display = "table";
+                filterContacts(); // Apply search filter
+
+            } catch (error) {
+                console.error("Error loading contacts:", error);
+                loadingDiv.style.display = "none";
+                showAlert("Error loading contacts: " + error.message, "error");
+            }
+        }
+
+        // ==================== DELETE CONTACT ====================
+        async function deleteContact(id) {
+            if (!confirm("Are you sure you want to delete this message?")) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/contacts/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (!response.ok) throw new Error("Failed to delete");
+
+                showAlert("✅ Contact deleted successfully!", "success");
+                refreshContacts();
+
+            } catch (error) {
+                console.error("Error deleting contact:", error);
+                showAlert("❌ Error deleting contact: " + error.message, "error");
+            }
+        }
+
+        // ==================== REFRESH CONTACTS ====================
+        function refreshContacts() {
+            document.getElementById("searchInput").value = "";
+            loadContacts();
+        }
+
+        // ==================== FILTER CONTACTS ====================
+        function filterContacts() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#contactsBody tr");
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? "" : "none";
+            });
+        }
+
+        // ==================== SHOW ALERT ====================
+        function showAlert(message, type) {
+            const alertBox = document.getElementById("alertBox");
+            alertBox.textContent = message;
+            alertBox.className = `alert show alert-${type}`;
+
+            setTimeout(() => {
+                alertBox.classList.remove("show");
+            }, 4000);
+        }
+
+        // ==================== ESCAPE HTML ====================
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== FORMAT DATE ====================
+        function formatDate(dateString) {
+            if (!dateString) return "N/A";
+            const date = new Date(dateString);
+            return date.toLocaleString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        document.getElementById("searchInput").addEventListener("keyup", filterContacts);
+
+        // ==================== INITIAL LOAD ====================
+        document.addEventListener("DOMContentLoaded", loadContacts);
+    </script>
+</body>
+</html>
